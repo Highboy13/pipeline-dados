@@ -16,12 +16,20 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+          pip install black autopep8 flake8
 
+      # Corrige automaticamente os problemas de estilo
+      - name: Auto format code
+        run: |
+          black src/
+          autopep8 --in-place --aggressive --aggressive src/*.py
+
+      # Valida com flake8 após correção
       - name: Run lint
         run: |
           flake8 src/
