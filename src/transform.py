@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 from utils import load_csv, save_csv
 from validate_schema import validate_schema
 
