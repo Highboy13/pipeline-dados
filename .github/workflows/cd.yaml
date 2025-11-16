@@ -1,0 +1,31 @@
+name: CD Pipeline
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run ETL
+        run: python src/transform.py
+
+      - name: Upload processed dataset
+        uses: actions/upload-artifact@v3
+        with:
+          name: books-processed
+          path: data/processed/books_clean.csv
