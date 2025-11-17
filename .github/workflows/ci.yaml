@@ -12,11 +12,11 @@ jobs:
     steps:
       # 1. Checkout do código
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2. Configura Python
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -55,9 +55,9 @@ jobs:
           export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest --cov=src --cov-report=xml --cov-report=term-missing
 
-      # 9. Upload do relatório de cobertura (opcional)
+      # 9. Upload do relatório de cobertura (corrigido para v4)
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage.xml
